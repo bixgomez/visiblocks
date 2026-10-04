@@ -1,36 +1,36 @@
 /**
- * GutenView: Adjustable editor sidebar.
+ * VisiBlocks: Adjustable editor sidebar.
  *
  * WordPress fixes the complementary area and its animated wrapper at 280px.
- * GutenView gives the outer sidebar an explicit width, then lets both React-owned
+ * VisiBlocks gives the outer sidebar an explicit width, then lets both React-owned
  * children fill it. The body classes are maintained by adjustable-sidebar.js so
  * the width override only exists while the complementary area is open.
  *
- * @package GutenView
+ * @package VisiBlocks
  */
 
-.gutenview-sidebar-resize-handle {
+.visiblocks-sidebar-resize-handle {
 	display: none;
 }
 
 @media ( min-width: 782px ) {
-	body.gutenview-adjustable-sidebar {
-		--gutenview-editor-sidebar-width: 400px;
+	body.visiblocks-adjustable-sidebar {
+		--visiblocks-editor-sidebar-width: 400px;
 	}
 
-	body.gutenview-adjustable-sidebar .interface-interface-skeleton__sidebar {
+	body.visiblocks-adjustable-sidebar .interface-interface-skeleton__sidebar {
 		width: 0;
 	}
 
-	body.gutenview-adjustable-sidebar.gutenview-sidebar-is-open .interface-interface-skeleton__sidebar {
-		width: var( --gutenview-editor-sidebar-width ) !important;
+	body.visiblocks-adjustable-sidebar.visiblocks-sidebar-is-open .interface-interface-skeleton__sidebar {
+		width: var( --visiblocks-editor-sidebar-width ) !important;
 	}
 
-	body.gutenview-adjustable-sidebar.gutenview-sidebar-is-open .interface-interface-skeleton__sidebar > .interface-complementary-area__fill {
+	body.visiblocks-adjustable-sidebar.visiblocks-sidebar-is-open .interface-interface-skeleton__sidebar > .interface-complementary-area__fill {
 		width: 100% !important;
 	}
 
-	body.gutenview-adjustable-sidebar.gutenview-sidebar-is-open .interface-interface-skeleton__sidebar > .interface-complementary-area__fill > .interface-complementary-area {
+	body.visiblocks-adjustable-sidebar.visiblocks-sidebar-is-open .interface-interface-skeleton__sidebar > .interface-complementary-area__fill > .interface-complementary-area {
 		max-width: 100%;
 		width: 100% !important;
 	}
@@ -39,11 +39,11 @@
 	 * Keep the editor scrollbar clear of the resize handle. The margin creates a
 	 * gutter between the scroll container and whichever side holds the sidebar.
 	 */
-	body.gutenview-adjustable-sidebar.gutenview-sidebar-is-open[data-gutenview-sidebar-side="right"] .interface-interface-skeleton__content {
+	body.visiblocks-adjustable-sidebar.visiblocks-sidebar-is-open[data-visiblocks-sidebar-side="right"] .interface-interface-skeleton__content {
 		margin-right: 8px;
 	}
 
-	body.gutenview-adjustable-sidebar.gutenview-sidebar-is-open[data-gutenview-sidebar-side="left"] .interface-interface-skeleton__content {
+	body.visiblocks-adjustable-sidebar.visiblocks-sidebar-is-open[data-visiblocks-sidebar-side="left"] .interface-interface-skeleton__content {
 		margin-left: 8px;
 	}
 
@@ -51,7 +51,7 @@
 	 * A real focusable separator lives outside Gutenberg's React tree. Its full
 	 * eight-pixel box is both the visible divider and the drag target.
 	 */
-	.gutenview-sidebar-resize-handle {
+	.visiblocks-sidebar-resize-handle {
 		appearance: none;
 		background: #ddd;
 		border: 0;
@@ -70,29 +70,29 @@
 		z-index: 99997;
 	}
 
-	body.gutenview-adjustable-sidebar.gutenview-sidebar-is-open .gutenview-sidebar-resize-handle {
+	body.visiblocks-adjustable-sidebar.visiblocks-sidebar-is-open .visiblocks-sidebar-resize-handle {
 		display: block;
 	}
 
-	.gutenview-sidebar-resize-handle:hover {
+	.visiblocks-sidebar-resize-handle:hover {
 		opacity: 1;
 	}
 
-	.gutenview-sidebar-resize-handle:focus {
+	.visiblocks-sidebar-resize-handle:focus {
 		outline: none;
 	}
 
-	.gutenview-sidebar-resize-handle:focus-visible {
+	.visiblocks-sidebar-resize-handle:focus-visible {
 		box-shadow: inset 0 0 0 2px var( --wp-admin-theme-color, #3858e9 );
 	}
 
-	body.gutenview-sidebar-is-resizing,
-	body.gutenview-sidebar-is-resizing * {
+	body.visiblocks-sidebar-is-resizing,
+	body.visiblocks-sidebar-is-resizing * {
 		cursor: col-resize !important;
 		user-select: none !important;
 	}
 
-	body.gutenview-sidebar-is-resizing iframe {
+	body.visiblocks-sidebar-is-resizing iframe {
 		pointer-events: none;
 	}
 
@@ -101,22 +101,22 @@
 	 * the panel from third-party fields whose intrinsic width would otherwise
 	 * create a horizontal scrollbar.
 	 */
-	body.gutenview-adjustable-sidebar .interface-interface-skeleton__sidebar .components-panel__body,
-	body.gutenview-adjustable-sidebar .interface-interface-skeleton__sidebar .components-base-control,
-	body.gutenview-adjustable-sidebar .interface-interface-skeleton__sidebar .components-base-control__field,
-	body.gutenview-adjustable-sidebar .interface-interface-skeleton__sidebar .editor-post-panel__row-control {
+	body.visiblocks-adjustable-sidebar .interface-interface-skeleton__sidebar .components-panel__body,
+	body.visiblocks-adjustable-sidebar .interface-interface-skeleton__sidebar .components-base-control,
+	body.visiblocks-adjustable-sidebar .interface-interface-skeleton__sidebar .components-base-control__field,
+	body.visiblocks-adjustable-sidebar .interface-interface-skeleton__sidebar .editor-post-panel__row-control {
 		max-width: 100%;
 		min-width: 0;
 	}
 
-	body.gutenview-adjustable-sidebar .interface-interface-skeleton__sidebar input:not( [type="checkbox"] ):not( [type="radio"] ),
-	body.gutenview-adjustable-sidebar .interface-interface-skeleton__sidebar select,
-	body.gutenview-adjustable-sidebar .interface-interface-skeleton__sidebar textarea {
+	body.visiblocks-adjustable-sidebar .interface-interface-skeleton__sidebar input:not( [type="checkbox"] ):not( [type="radio"] ),
+	body.visiblocks-adjustable-sidebar .interface-interface-skeleton__sidebar select,
+	body.visiblocks-adjustable-sidebar .interface-interface-skeleton__sidebar textarea {
 		box-sizing: border-box;
 		max-width: 100%;
 	}
 
-	body.gutenview-adjustable-sidebar .interface-interface-skeleton__sidebar .post_lang_choice {
+	body.visiblocks-adjustable-sidebar .interface-interface-skeleton__sidebar .post_lang_choice {
 		width: 100%;
 	}
 }

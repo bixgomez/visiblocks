@@ -6,7 +6,7 @@
  * same tab, next to the stock button (which keeps opening a new tab). Also makes
  * the "saved" snackbar's View link open in the same tab.
  *
- * @package GutenView
+ * @package VisiBlocks
  */
 
 // Exit if accessed directly.
@@ -19,16 +19,16 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @return void
  */
-function gutenview_view_same_tab_enqueue() {
-	if ( ! gutenview_is_enabled() || ! gutenview_get_setting( 'view_same_tab' ) ) {
+function visiblocks_view_same_tab_enqueue() {
+	if ( ! visiblocks_is_enabled() || ! visiblocks_get_setting( 'view_same_tab' ) ) {
 		return;
 	}
 
-	gutenview_enqueue_script(
-		'gutenview-view-same-tab',
+	visiblocks_enqueue_script(
+		'visiblocks-view-same-tab',
 		'assets/js/view-same-tab.js',
 		array( 'wp-dom-ready', 'wp-i18n' ),
 		true
 	);
 }
-add_action( 'enqueue_block_editor_assets', 'gutenview_view_same_tab_enqueue' );
+add_action( 'enqueue_block_editor_assets', 'visiblocks_view_same_tab_enqueue' );

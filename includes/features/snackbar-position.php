@@ -5,7 +5,7 @@
  * Moves the block editor's "saved" snackbar notice from the far bottom-left
  * corner up to the top-right, near the Save button.
  *
- * @package GutenView
+ * @package VisiBlocks
  */
 
 // Exit if accessed directly.
@@ -18,11 +18,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @return void
  */
-function gutenview_snackbar_position_enqueue() {
-	if ( ! gutenview_is_enabled() || ! gutenview_get_setting( 'reposition_snackbar' ) ) {
+function visiblocks_snackbar_position_enqueue() {
+	if ( ! visiblocks_is_enabled() || ! visiblocks_get_setting( 'reposition_snackbar' ) ) {
 		return;
 	}
 
-	gutenview_enqueue_style( 'gutenview-snackbar-position', 'assets/css/snackbar-position.css' );
+	visiblocks_enqueue_style( 'visiblocks-snackbar-position', 'assets/css/snackbar-position.css' );
 }
-add_action( 'enqueue_block_editor_assets', 'gutenview_snackbar_position_enqueue' );
+add_action( 'enqueue_block_editor_assets', 'visiblocks_snackbar_position_enqueue' );

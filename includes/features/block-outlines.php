@@ -9,7 +9,7 @@
  * `enqueue_block_editor_assets`, because in WP 6.3+ the editor canvas is an
  * iframe and only `enqueue_block_assets` styles reach inside it.
  *
- * @package GutenView
+ * @package VisiBlocks
  */
 
 // Exit if accessed directly.
@@ -22,17 +22,17 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @return void
  */
-function gutenview_block_outlines_enqueue() {
+function visiblocks_block_outlines_enqueue() {
 	// Editor canvas only (this hook also fires on the front end).
 	if ( ! is_admin() ) {
 		return;
 	}
 
-	if ( ! gutenview_is_enabled() ) {
+	if ( ! visiblocks_is_enabled() ) {
 		return;
 	}
 
-	$mode = gutenview_get_setting( 'block_outlines' );
+	$mode = visiblocks_get_setting( 'block_outlines' );
 
 	/*
 	 * This also constrains $mode to a known-safe value before it is used to build
@@ -44,13 +44,13 @@ function gutenview_block_outlines_enqueue() {
 	}
 
 	// Shared base: colour language, line geometry, hover state, motion.
-	gutenview_enqueue_style( 'gutenview-block-outlines', 'assets/css/block-outlines.css' );
+	visiblocks_enqueue_style( 'visiblocks-block-outlines', 'assets/css/block-outlines.css' );
 
 	// Mode layer, declared dependent on the base so it always loads after it.
-	gutenview_enqueue_style(
-		'gutenview-block-outlines-' . $mode,
+	visiblocks_enqueue_style(
+		'visiblocks-block-outlines-' . $mode,
 		'assets/css/block-outlines-' . $mode . '.css',
-		array( 'gutenview-block-outlines' )
+		array( 'visiblocks-block-outlines' )
 	);
 }
-add_action( 'enqueue_block_assets', 'gutenview_block_outlines_enqueue' );
+add_action( 'enqueue_block_assets', 'visiblocks_block_outlines_enqueue' );

@@ -1,5 +1,5 @@
 /**
- * GutenView: Remove-block button.
+ * VisiBlocks: Remove-block button.
  *
  * Adds a "minus" button beside the "+" that core shows on a new, empty block
  * (`.block-editor-block-list__empty-block-inserter`), so an accidentally added
@@ -13,7 +13,7 @@
  * Core renders that inserter transiently (it appears and disappears as empty
  * blocks come and go), so we watch for it and re-inject as needed.
  *
- * @package GutenView
+ * @package VisiBlocks
  */
 
 ( function () {
@@ -40,7 +40,7 @@
 	 */
 	function label() {
 		if ( window.wp && window.wp.i18n && window.wp.i18n.__ ) {
-			return window.wp.i18n.__( 'Remove block', 'gutenview' );
+			return window.wp.i18n.__( 'Remove block', 'visiblocks' );
 		}
 		return 'Remove block';
 	}
@@ -70,7 +70,7 @@
 	 * @param {Element} inserter
 	 */
 	function decorate( inserter ) {
-		if ( ! inserter || inserter.querySelector( '.gutenview-remove-block' ) ) {
+		if ( ! inserter || inserter.querySelector( '.visiblocks-remove-block' ) ) {
 			return;
 		}
 
@@ -79,7 +79,7 @@
 
 		btn.type = 'button';
 		btn.className =
-			'components-button block-editor-inserter__toggle is-next-40px-default-size has-icon gutenview-remove-block';
+			'components-button block-editor-inserter__toggle is-next-40px-default-size has-icon visiblocks-remove-block';
 		btn.setAttribute( 'aria-label', label() );
 		btn.setAttribute( 'title', label() );
 		btn.innerHTML = MINUS_SVG;

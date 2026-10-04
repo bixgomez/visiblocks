@@ -1,11 +1,11 @@
 /**
- * GutenView: Delete button in the block toolbar.
+ * VisiBlocks: Delete button in the block toolbar.
  *
  * Deleting a block is a common, deliberate action that core files away in the
  * toolbar's overflow menu ("three dots"), so it costs two clicks and a hunt. This
  * puts it in the toolbar itself.
  *
- * Unlike GutenView's other editor features this one does NOT touch the DOM. The
+ * Unlike VisiBlocks's other editor features this one does NOT touch the DOM. The
  * block toolbar is React-owned and re-renders constantly, so anything injected
  * into it by hand would be fought and eventually lost. Instead it extends the
  * toolbar the way core intends, through the `editor.BlockEdit` filter and a
@@ -17,7 +17,7 @@
  * ToolbarGroup of their own. So no ToolbarGroup is created here; doing that would
  * nest one group inside another.
  *
- * @package GutenView
+ * @package VisiBlocks
  */
 
 ( function () {
@@ -42,7 +42,7 @@
 	 */
 	function label() {
 		if ( wp.i18n && wp.i18n.__ ) {
-			return wp.i18n.__( 'Delete block', 'gutenview' );
+			return wp.i18n.__( 'Delete block', 'visiblocks' );
 		}
 		return 'Delete block';
 	}
@@ -115,7 +115,7 @@
 				)
 			);
 		};
-	}, 'gutenviewWithDeleteButton' );
+	}, 'visiblocksWithDeleteButton' );
 
-	wp.hooks.addFilter( 'editor.BlockEdit', 'gutenview/toolbar-delete-button', withDeleteButton );
+	wp.hooks.addFilter( 'editor.BlockEdit', 'visiblocks/toolbar-delete-button', withDeleteButton );
 } )();

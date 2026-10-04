@@ -1,5 +1,5 @@
 /**
- * GutenView: Add-block buttons at the edges.
+ * VisiBlocks: Add-block buttons at the edges.
  *
  * Places a real, working "+" above the first top-level block and below the final
  * one, so there is always an obvious place to start writing and to continue.
@@ -13,7 +13,7 @@
  * The buttons are injected into the canvas (the iframe in WP 6.3+), on either side
  * of the block list, and re-placed if React moves or removes them.
  *
- * @package GutenView
+ * @package VisiBlocks
  */
 
 ( function () {
@@ -241,11 +241,11 @@
 	function build( doc, edge ) {
 		var btn = doc.createElement( 'button' );
 		var label = ( window.wp && window.wp.i18n && window.wp.i18n.__ )
-			? window.wp.i18n.__( 'Add block', 'gutenview' )
+			? window.wp.i18n.__( 'Add block', 'visiblocks' )
 			: 'Add block';
 
 		btn.type = 'button';
-		btn.className = 'gutenview-edge-inserter gutenview-edge-inserter--' + edge;
+		btn.className = 'visiblocks-edge-inserter visiblocks-edge-inserter--' + edge;
 		btn.setAttribute( 'aria-label', label );
 		btn.setAttribute( 'title', label );
 		btn.innerHTML = PLUS_SVG;
@@ -304,7 +304,7 @@
 
 		for ( var i = 0; i < EDGES.length; i++ ) {
 			var edge = EDGES[ i ];
-			var btn = doc.querySelector( '.gutenview-edge-inserter--' + edge );
+			var btn = doc.querySelector( '.visiblocks-edge-inserter--' + edge );
 			var id = edgeBlockId( blocks, edge );
 
 			if ( btn && btn.isConnected ) {

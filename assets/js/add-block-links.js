@@ -1,12 +1,12 @@
 /**
- * GutenView: Add-block hints (measuring helper).
+ * VisiBlocks: Add-block hints (measuring helper).
  *
  * Positions the cosmetic "ghost +" dead-center in the (theme-variable) gap after
  * each top-level block. It does NOT touch insertion, the block tree, or React.
  * It only measures gaps and writes one CSS custom property as an inline style on
  * each block, which the stylesheet reads:
  *
- *   --gutenview-gap  the measured pixel gap to the next block (ghost offset)
+ *   --visiblocks-gap  the measured pixel gap to the next block (ghost offset)
  *
  * No hover/fade logic is needed: WordPress's own between-block inserter is a
  * high-z-index popover that simply renders on top of the ghost when you approach
@@ -14,7 +14,7 @@
  *
  * React leaves unknown inline custom properties alone, so nothing is fought.
  *
- * @package GutenView
+ * @package VisiBlocks
  */
 
 ( function () {
@@ -165,17 +165,17 @@
 			var col = cols[ i ];
 			// At the max, WordPress shows no "Add column" +, so neither do we.
 			if ( columnCount( col ) >= MAX_COLUMNS ) {
-				col.style.setProperty( '--gutenview-col-ghost-display', 'none' );
+				col.style.setProperty( '--visiblocks-col-ghost-display', 'none' );
 				continue;
 			}
 			var next = nextColumn( col );
 			if ( next ) {
 				var gap = Math.max( 0, Math.round( next.getBoundingClientRect().left - col.getBoundingClientRect().right ) );
-				col.style.setProperty( '--gutenview-col-gap', gap + 'px' );
-				col.style.removeProperty( '--gutenview-col-ghost-display' );
+				col.style.setProperty( '--visiblocks-col-gap', gap + 'px' );
+				col.style.removeProperty( '--visiblocks-col-ghost-display' );
 			} else {
 				// No native inserter after the last column, so hide that ghost.
-				col.style.setProperty( '--gutenview-col-ghost-display', 'none' );
+				col.style.setProperty( '--visiblocks-col-ghost-display', 'none' );
 			}
 		}
 	}
@@ -191,7 +191,7 @@
 		var emptyId = selectedEmptyBlockId();
 
 		for ( var i = 0; i < blocks.length; i++ ) {
-			blocks[ i ].style.setProperty( '--gutenview-gap', gapBelow( blocks, i ) + 'px' );
+			blocks[ i ].style.setProperty( '--visiblocks-gap', gapBelow( blocks, i ) + 'px' );
 
 			// No native inserter exists after the final block.
 			var hide = ( i === last );
@@ -208,14 +208,14 @@
 			}
 
 			if ( hide ) {
-				blocks[ i ].style.setProperty( '--gutenview-ghost-display', 'none' );
+				blocks[ i ].style.setProperty( '--visiblocks-ghost-display', 'none' );
 			} else {
-				blocks[ i ].style.removeProperty( '--gutenview-ghost-display' );
+				blocks[ i ].style.removeProperty( '--visiblocks-ghost-display' );
 			}
 			// A void block (e.g. a separator <hr>) can't host ::after, so the ghost
 			// for the gap below it is carried by THIS block's ::before instead.
 			if ( i > 0 && 'HR' === blocks[ i - 1 ].tagName ) {
-				blocks[ i ].style.setProperty( '--gutenview-prevsep-gap', gapBelow( blocks, i - 1 ) + 'px' );
+				blocks[ i ].style.setProperty( '--visiblocks-prevsep-gap', gapBelow( blocks, i - 1 ) + 'px' );
 
 				/*
 				 * That carried ghost needs its own visibility flag. The `hide`
@@ -227,13 +227,13 @@
 					blocks[ i ].getAttribute( 'data-block' ) === emptyId ||
 					blocks[ i - 1 ].getAttribute( 'data-block' ) === emptyId
 				) ) {
-					blocks[ i ].style.setProperty( '--gutenview-prevsep-display', 'none' );
+					blocks[ i ].style.setProperty( '--visiblocks-prevsep-display', 'none' );
 				} else {
-					blocks[ i ].style.removeProperty( '--gutenview-prevsep-display' );
+					blocks[ i ].style.removeProperty( '--visiblocks-prevsep-display' );
 				}
 			} else {
-				blocks[ i ].style.removeProperty( '--gutenview-prevsep-gap' );
-				blocks[ i ].style.removeProperty( '--gutenview-prevsep-display' );
+				blocks[ i ].style.removeProperty( '--visiblocks-prevsep-gap' );
+				blocks[ i ].style.removeProperty( '--visiblocks-prevsep-display' );
 			}
 		}
 

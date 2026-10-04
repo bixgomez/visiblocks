@@ -9,7 +9,7 @@
  * Both assets target the editor chrome in the outer admin document, so they
  * load on `enqueue_block_editor_assets`.
  *
- * @package GutenView
+ * @package VisiBlocks
  */
 
 // Exit if accessed directly.
@@ -22,21 +22,21 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @return void
  */
-function gutenview_adjustable_sidebar_enqueue() {
-	if ( ! gutenview_is_enabled() || ! gutenview_get_setting( 'adjustable_sidebar' ) ) {
+function visiblocks_adjustable_sidebar_enqueue() {
+	if ( ! visiblocks_is_enabled() || ! visiblocks_get_setting( 'adjustable_sidebar' ) ) {
 		return;
 	}
 
-	gutenview_enqueue_style(
-		'gutenview-adjustable-sidebar',
+	visiblocks_enqueue_style(
+		'visiblocks-adjustable-sidebar',
 		'assets/css/adjustable-sidebar.css'
 	);
 
-	gutenview_enqueue_script(
-		'gutenview-adjustable-sidebar',
+	visiblocks_enqueue_script(
+		'visiblocks-adjustable-sidebar',
 		'assets/js/adjustable-sidebar.js',
 		array( 'wp-data', 'wp-dom-ready', 'wp-edit-post', 'wp-i18n', 'wp-preferences' ),
 		true
 	);
 }
-add_action( 'enqueue_block_editor_assets', 'gutenview_adjustable_sidebar_enqueue' );
+add_action( 'enqueue_block_editor_assets', 'visiblocks_adjustable_sidebar_enqueue' );

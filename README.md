@@ -1,4 +1,4 @@
-# GutenView
+# VisiBlocks
 
 Makes the WordPress block editor's hidden editing affordances visible and
 discoverable.
@@ -14,13 +14,13 @@ all, and where a new block would go are all invisible until you happen to put th
 cursor in the right place. Experienced users have internalized this. Clients,
 editors, marketing teams, and anyone who edits a page once a month have not.
 
-GutenView surfaces those affordances. Each one is independently configurable, so
+VisiBlocks surfaces those affordances. Each one is independently configurable, so
 a site can turn on only what its editors need.
 
 ## What it is not
 
 It is not a page builder. It is not Elementor, Divi, or Beaver Builder, and it
-does not aim to become them. Gutenberg stays Gutenberg. GutenView only removes
+does not aim to become them. Gutenberg stays Gutenberg. VisiBlocks only removes
 friction around it.
 
 It does not require blocks to be rewritten or to opt in. It works with core, ACF,
@@ -47,12 +47,12 @@ Once the release is available through Packagist, install it from the consuming
 WordPress project:
 
 ```bash
-composer require bixgomez/gutenview:^0.1
+composer require bixgomez/visiblocks:^0.1
 ```
 
-GutenView declares the `wordpress-plugin` package type and installs as
-`gutenview`. In a conventional Composer-managed WordPress project, that places
-the package at `wp-content/plugins/gutenview`.
+VisiBlocks declares the `wordpress-plugin` package type and installs as
+`visiblocks`. In a conventional Composer-managed WordPress project, that places
+the package at `wp-content/plugins/visiblocks`.
 
 Projects with a custom web root can map WordPress plugins to their own path in
 the consuming project's `composer.json`. For example:
@@ -72,27 +72,27 @@ the consuming project's `composer.json`. For example:
 }
 ```
 
-Composer-managed sites should update GutenView through Composer so the selected
+Composer-managed sites should update VisiBlocks through Composer so the selected
 version remains recorded in the project's `composer.lock`:
 
 ```bash
-composer update bixgomez/gutenview
+composer update bixgomez/visiblocks
 ```
 
 ### Manual installation
 
 Download a release from the
-[GitHub repository](https://github.com/bixgomez/gutenview), extract it as
-`wp-content/plugins/gutenview`, and activate GutenView through the WordPress
+[GitHub repository](https://github.com/bixgomez/visiblocks), extract it as
+`wp-content/plugins/visiblocks`, and activate VisiBlocks through the WordPress
 Plugins screen.
 
 Native installation and updates through the WordPress admin will become
-available after GutenView is accepted into the WordPress.org plugin directory.
+available after VisiBlocks is accepted into the WordPress.org plugin directory.
 
 ## Architecture
 
 ```
-gutenview.php                      Bootstrap, constants, feature module loading
+visiblocks.php                     Bootstrap, constants, feature module loading
 uninstall.php                      Removes the settings option when deleted
 readme.txt                         WordPress.org directory listing
 README.md                          This file
@@ -101,7 +101,7 @@ includes/
   activation.php                   Seeds the defaults on first activation
   assets.php                       Shared enqueue helpers: versioning, translations
   admin/
-    settings-page.php              Settings -> GutenView, field renderers, sanitizer
+    settings-page.php              Settings -> VisiBlocks, field renderers, sanitizer
   features/
     <feature>.php                  One file per feature
 assets/
@@ -128,18 +128,18 @@ Every directory also carries a silence `index.php`.
 
 ### Settings
 
-All settings live in a single array option, `gutenview_settings`, referenced
-through the `GUTENVIEW_OPTION` constant.
+All settings live in a single array option, `visiblocks_settings`, referenced
+through the `VISIBLOCKS_OPTION` constant.
 
-`gutenview_default_settings()` in `includes/settings.php` is the single source of
+`visiblocks_default_settings()` in `includes/settings.php` is the single source of
 truth for setting keys and their defaults. Nothing else should hardcode a key or
 a default value.
 
 Accessors:
 
-- `gutenview_get_settings()` returns stored values merged over defaults
-- `gutenview_get_setting( $key )` returns one value, or `null` for unknown keys
-- `gutenview_is_enabled()` reports the master switch
+- `visiblocks_get_settings()` returns stored values merged over defaults
+- `visiblocks_get_setting( $key )` returns one value, or `null` for unknown keys
+- `visiblocks_is_enabled()` reports the master switch
 
 Every setting defaults on, so a fresh install shows what the plugin does without
 anyone having to go hunting through a settings page first. Editors switch off
@@ -147,14 +147,14 @@ whatever they do not want. Turning the master switch off suppresses every
 feature while preserving each individual toggle, so a site can disable the
 plugin's effects wholesale without losing its configuration.
 
-`gutenview_activate()` in `includes/activation.php` writes the defaults to the
+`visiblocks_activate()` in `includes/activation.php` writes the defaults to the
 option on first activation. It uses `add_option()`, so reactivating an existing
 install never overwrites choices already made.
 
 Because every setting lives inside that one option, `uninstall.php` only has to
 delete a single key. Note that it repeats the option name as a literal string,
 since WordPress loads `uninstall.php` without the main plugin file and
-`GUTENVIEW_OPTION` therefore does not exist at that point. If the constant ever
+`VISIBLOCKS_OPTION` therefore does not exist at that point. If the constant ever
 changes, change it in both places.
 
 ### Feature modules
@@ -162,16 +162,16 @@ changes, change it in both places.
 Each feature is one self-contained file in `includes/features/`. A feature
 module is responsible for exactly three things:
 
-1. Checking `gutenview_is_enabled()` and its own setting key
+1. Checking `visiblocks_is_enabled()` and its own setting key
 2. Returning early if either is off
 3. Enqueueing its own assets on the correct hook
 
-Feature modules are loaded admin-only from `gutenview_bootstrap()`, since the
+Feature modules are loaded admin-only from `visiblocks_bootstrap()`, since the
 block editor runs in wp-admin. `includes/settings.php` and `includes/assets.php`
 are loaded unconditionally so settings and enqueue helpers are available anywhere.
 
 Modules do not call `wp_enqueue_style()` or `wp_enqueue_script()` directly. They
-use `gutenview_enqueue_style()` and `gutenview_enqueue_script()` from
+use `visiblocks_enqueue_style()` and `visiblocks_enqueue_script()` from
 `includes/assets.php`, which centralize path building, cache-bust versioning, and
 translation registration. A feature module should only have to say which file it
 wants and what it depends on.
@@ -235,7 +235,7 @@ enhancements, not a framework.
 `::before` and `::after`. The add-block hints use `::after` (and `::before` on
 blocks that follow a separator), and core itself uses `::after` to draw the
 `.is-highlighted` ring. Any new block-level decoration has to account for what is
-already claimed. Where core and GutenView collide, GutenView yields: see the
+already claimed. Where core and VisiBlocks collide, VisiBlocks yields: see the
 `.is-highlighted` rule at the end of `add-block-links.css`, which hands the
 pseudo-element back to core for the duration of the highlight.
 
@@ -255,7 +255,7 @@ case, deemed rare enough to leave.
 
 **Mirror core's limits rather than inventing them.** `MAX_COLUMNS` in
 `add-block-links.js` is 6 because core's Columns block caps there and stops
-offering its own "Add column" control. When core hides an affordance, GutenView
+offering its own "Add column" control. When core hides an affordance, VisiBlocks
 hides its hint for the same affordance.
 
 **Blocks inside the canvas inherit the theme's editor styles.** Classic themes
@@ -281,7 +281,7 @@ See `edge-block-inserters.css`.
 whitelist; anything unrecognized falls back to `off`.
 
 The adjustable sidebar stores its enabled state with the other site-wide
-GutenView settings. Its pixel width is different: each editor chooses that value
+VisiBlocks settings. Its pixel width is different: each editor chooses that value
 independently, and the JavaScript stores it through WordPress's preferences data
 store. The resize separator lives under `document.body`, outside Gutenberg's
 React-owned tree, and tracks the sidebar edge with `ResizeObserver`. It starts
@@ -290,20 +290,20 @@ responsive-testing canvas.
 
 ## Adding a feature
 
-1. Add the setting key and its default to `gutenview_default_settings()` in
+1. Add the setting key and its default to `visiblocks_default_settings()` in
    `includes/settings.php`. Default to on, like every other setting.
-2. Add a sanitizer entry in `gutenview_sanitize_settings()` in
+2. Add a sanitizer entry in `visiblocks_sanitize_settings()` in
    `includes/admin/settings-page.php`. Booleans use `! empty()`; anything with a
    fixed set of values gets a whitelist check.
 3. Register the field with `add_settings_field()` in the appropriate section,
-   using `gutenview_render_checkbox_field()` or `gutenview_render_select_field()`.
-4. Create `includes/features/<feature>.php`. Gate on `gutenview_is_enabled()` and
+   using `visiblocks_render_checkbox_field()` or `visiblocks_render_select_field()`.
+4. Create `includes/features/<feature>.php`. Gate on `visiblocks_is_enabled()` and
    your own key, then enqueue on the hook the enqueue rule above calls for.
 5. Add assets under `assets/css/` and `assets/js/`, named after the feature.
-6. Require the new module from `gutenview_bootstrap()` in `gutenview.php`, inside
+6. Require the new module from `visiblocks_bootstrap()` in `visiblocks.php`, inside
    the `is_admin()` block.
 
-Enqueue through `gutenview_enqueue_style()` and `gutenview_enqueue_script()`
+Enqueue through `visiblocks_enqueue_style()` and `visiblocks_enqueue_script()`
 rather than the WordPress functions directly, so versioning and translation
 wiring stay in one place. If the script contains any user-facing strings, pass
 `true` as the final argument and add `wp-i18n` to its dependencies.
@@ -325,7 +325,7 @@ reader user on a non-English site. Note also that
 that replacement must be translated, or it is a regression against WordPress.
 
 **Write i18n strings as literals inside `__()`.** The extraction tooling reads
-the source statically, so `__( someVariable, 'gutenview' )` produces a string
+the source statically, so `__( someVariable, 'visiblocks' )` produces a string
 that can never appear in a `.pot` file and therefore can never be translated,
 even though the code looks correct. See `labels()` in `view-same-tab.js` for the
 shape that works.
@@ -349,9 +349,9 @@ decoys for the eye; announcing them would be noise.
 
 The plugin targets the WordPress Coding Standards, which WordPress.org requires:
 
-- Prefix everything with `gutenview_`, including functions, option keys, and
+- Prefix everything with `visiblocks_`, including functions, option keys, and
   asset handles
-- Text domain is `gutenview`, matching the plugin slug; all user-facing strings
+- Text domain is `visiblocks`, matching the plugin slug; all user-facing strings
   are translatable
 - Sanitize on input, escape on output
 - Gate admin actions on capability checks
@@ -368,12 +368,9 @@ releases under GPL-2.0-or-later.
 Outstanding before submission:
 
 - Publish the first tagged GitHub release and register it with Packagist
-- Confirm the `gutenview` slug is available
+- Confirm the `visiblocks` slug is available
 - Run Plugin Check
 - Add screenshots
 - `Requires at least` is set to 6.5. Development was against 7.0; the plugin is
   also being tested on 6.9. The 6.5 to 6.8 range is a declared floor that has not
   been verified directly, so spot-check it before relying on it.
-
-WordPress.org discourages "Gutenberg" in plugin names and slugs. "GutenView"
-should be acceptable, but confirm before release.

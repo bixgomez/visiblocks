@@ -1,4 +1,4 @@
-=== GutenView ===
+=== VisiBlocks ===
 Contributors: bixgomez
 Tags: block editor, gutenberg, editor, usability
 Requires at least: 6.5
@@ -18,11 +18,11 @@ and where a new block would go are invisible until the cursor happens to land in
 the right place. Experienced users have learned to live with this. Clients,
 editors, and anyone who updates a page once a month have not.
 
-GutenView makes those controls visible. Every enhancement is a separate setting,
+VisiBlocks makes those controls visible. Every enhancement is a separate setting,
 and they all start switched on, so you can see what the plugin does right away
 and then switch off anything your editors do not need.
 
-It is not a page builder. The block editor stays exactly as it is, and GutenView
+It is not a page builder. The block editor stays exactly as it is, and VisiBlocks
 only removes friction around it. Blocks do not need to be rewritten or to opt in,
 so it works with core blocks, ACF blocks, and third-party blocks alike. Disable
 the plugin and the editor behaves as it always did.
@@ -85,14 +85,14 @@ inside the editor.
 
 Choose either installation method:
 
-* With Composer: run `composer require bixgomez/gutenview:^0.1` from a
+* With Composer: run `composer require bixgomez/visiblocks:^0.1` from a
   Composer-managed WordPress project.
-* Manually: upload the `gutenview` folder to `/wp-content/plugins/`.
+* Manually: upload the `visiblocks` folder to `/wp-content/plugins/`.
 
 Then:
 
 1. Activate the plugin through the "Plugins" screen in WordPress.
-2. Go to Settings > GutenView (or the "Settings" link in the plugin's row on the
+2. Go to Settings > VisiBlocks (or the "Settings" link in the plugin's row on the
    Plugins screen) to review the enhancements.
 
 Every enhancement starts switched on, so the plugin does its thing as soon as it
@@ -103,23 +103,23 @@ suppress all of them at once without losing your individual choices.
 
 = Is this a page builder? =
 
-No. GutenView adds no blocks, no layout system, and no templates. It makes the
+No. VisiBlocks adds no blocks, no layout system, and no templates. It makes the
 existing block editor's controls easier to see. Everything you build stays
 standard block markup.
 
 = Will it work with my blocks? =
 
-Yes. GutenView does not require blocks to support it, so core blocks, ACF blocks,
+Yes. VisiBlocks does not require blocks to support it, so core blocks, ACF blocks,
 and third-party blocks all work without modification.
 
 = What happens if I deactivate it? =
 
-The editor returns to normal immediately. GutenView only adds editor styling and
+The editor returns to normal immediately. VisiBlocks only adds editor styling and
 editor controls, and changes nothing about your content.
 
 = Does it change how my site looks to visitors? =
 
-No. Everything GutenView does happens inside the editor. The front end is
+No. Everything VisiBlocks does happens inside the editor. The front end is
 untouched.
 
 = Can I turn on just one thing? =
@@ -134,7 +134,7 @@ everything off at once while remembering your individual choices.
 * Prepare plugin metadata for WordPress.org distribution.
 
 = 0.1.0 =
-* Settings page (Settings > GutenView) with a master switch and per-feature toggles.
+* Settings page (Settings > VisiBlocks) with a master switch and per-feature toggles.
 * "Settings" link in the plugin's row on the Plugins screen.
 * Every enhancement switched on by default, seeded on first activation.
 * Block outlines, with off, on-hover, and always modes, including selected-block and parent-container states.

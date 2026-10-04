@@ -1,11 +1,11 @@
 /**
- * GutenView: View in same tab.
+ * VisiBlocks: View in same tab.
  *
  * Adds a "View" button to the block editor header that opens the current post
  * in the same tab, next to the stock button (which opens a new tab). Also makes
  * the "saved" snackbar's View link open in the same tab.
  *
- * @package GutenView
+ * @package VisiBlocks
  */
 
 ( function () {
@@ -27,8 +27,8 @@
 	function labels() {
 		if ( window.wp && window.wp.i18n && window.wp.i18n.__ ) {
 			return {
-				sameTab: window.wp.i18n.__( 'View (same tab)', 'gutenview' ),
-				newTab: window.wp.i18n.__( 'View (new tab)', 'gutenview' ),
+				sameTab: window.wp.i18n.__( 'View (same tab)', 'visiblocks' ),
+				newTab: window.wp.i18n.__( 'View (new tab)', 'visiblocks' ),
 			};
 		}
 
@@ -69,7 +69,7 @@
 		}
 
 		// Already added.
-		if ( headerSettings.querySelector( '.gutenview-view-same-tab' ) ) {
+		if ( headerSettings.querySelector( '.visiblocks-view-same-tab' ) ) {
 			return true;
 		}
 
@@ -85,7 +85,7 @@
 		var sameTabLink = document.createElement( 'a' );
 		sameTabLink.href = viewLink.href;
 		sameTabLink.className =
-			'components-button is-compact has-icon gutenview-view-same-tab';
+			'components-button is-compact has-icon visiblocks-view-same-tab';
 		sameTabLink.setAttribute( 'aria-label', text.sameTab );
 		sameTabLink.setAttribute( 'title', text.sameTab );
 		sameTabLink.innerHTML = eyeIconSVG;

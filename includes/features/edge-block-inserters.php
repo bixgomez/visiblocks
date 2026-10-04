@@ -12,7 +12,7 @@
  * The JS runs in the outer editor document and reaches into the canvas; the CSS
  * styles elements inside the canvas, so it goes on `enqueue_block_assets`.
  *
- * @package GutenView
+ * @package VisiBlocks
  */
 
 // Exit if accessed directly.
@@ -25,8 +25,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @return bool
  */
-function gutenview_edge_block_inserters_enabled() {
-	return gutenview_is_enabled() && gutenview_get_setting( 'edge_block_inserters' );
+function visiblocks_edge_block_inserters_enabled() {
+	return visiblocks_is_enabled() && visiblocks_get_setting( 'edge_block_inserters' );
 }
 
 /**
@@ -34,30 +34,30 @@ function gutenview_edge_block_inserters_enabled() {
  *
  * @return void
  */
-function gutenview_edge_block_inserters_enqueue_script() {
-	if ( ! gutenview_edge_block_inserters_enabled() ) {
+function visiblocks_edge_block_inserters_enqueue_script() {
+	if ( ! visiblocks_edge_block_inserters_enabled() ) {
 		return;
 	}
 
-	gutenview_enqueue_script(
-		'gutenview-edge-block-inserters',
+	visiblocks_enqueue_script(
+		'visiblocks-edge-block-inserters',
 		'assets/js/edge-block-inserters.js',
 		array( 'wp-data', 'wp-blocks', 'wp-i18n' ),
 		true
 	);
 }
-add_action( 'enqueue_block_editor_assets', 'gutenview_edge_block_inserters_enqueue_script' );
+add_action( 'enqueue_block_editor_assets', 'visiblocks_edge_block_inserters_enqueue_script' );
 
 /**
  * Enqueue the edge-inserter stylesheet into the canvas.
  *
  * @return void
  */
-function gutenview_edge_block_inserters_enqueue_style() {
-	if ( ! is_admin() || ! gutenview_edge_block_inserters_enabled() ) {
+function visiblocks_edge_block_inserters_enqueue_style() {
+	if ( ! is_admin() || ! visiblocks_edge_block_inserters_enabled() ) {
 		return;
 	}
 
-	gutenview_enqueue_style( 'gutenview-edge-block-inserters', 'assets/css/edge-block-inserters.css' );
+	visiblocks_enqueue_style( 'visiblocks-edge-block-inserters', 'assets/css/edge-block-inserters.css' );
 }
-add_action( 'enqueue_block_assets', 'gutenview_edge_block_inserters_enqueue_style' );
+add_action( 'enqueue_block_assets', 'visiblocks_edge_block_inserters_enqueue_style' );

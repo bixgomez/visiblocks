@@ -11,7 +11,7 @@
  * stylesheet: the control is built from core's own ToolbarButton and should look
  * exactly like its neighbours.
  *
- * @package GutenView
+ * @package VisiBlocks
  */
 
 // Exit if accessed directly.
@@ -24,8 +24,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @return bool
  */
-function gutenview_toolbar_delete_button_enabled() {
-	return gutenview_is_enabled() && gutenview_get_setting( 'toolbar_delete_button' );
+function visiblocks_toolbar_delete_button_enabled() {
+	return visiblocks_is_enabled() && visiblocks_get_setting( 'toolbar_delete_button' );
 }
 
 /**
@@ -33,13 +33,13 @@ function gutenview_toolbar_delete_button_enabled() {
  *
  * @return void
  */
-function gutenview_toolbar_delete_button_enqueue_script() {
-	if ( ! gutenview_toolbar_delete_button_enabled() ) {
+function visiblocks_toolbar_delete_button_enqueue_script() {
+	if ( ! visiblocks_toolbar_delete_button_enabled() ) {
 		return;
 	}
 
-	gutenview_enqueue_script(
-		'gutenview-toolbar-delete-button',
+	visiblocks_enqueue_script(
+		'visiblocks-toolbar-delete-button',
 		'assets/js/toolbar-delete-button.js',
 		array(
 			'wp-block-editor',
@@ -53,4 +53,4 @@ function gutenview_toolbar_delete_button_enqueue_script() {
 		true
 	);
 }
-add_action( 'enqueue_block_editor_assets', 'gutenview_toolbar_delete_button_enqueue_script' );
+add_action( 'enqueue_block_editor_assets', 'visiblocks_toolbar_delete_button_enqueue_script' );

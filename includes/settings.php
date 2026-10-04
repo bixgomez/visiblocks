@@ -1,11 +1,11 @@
 <?php
 /**
- * GutenView settings accessors.
+ * VisiBlocks settings accessors.
  *
  * Data-layer helpers for reading plugin settings. Always loaded (not admin-only)
  * so feature modules can consult settings in the editor and on the front end.
  *
- * @package GutenView
+ * @package VisiBlocks
  */
 
 // Exit if accessed directly.
@@ -19,12 +19,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  * The single source of truth for setting keys and their defaults. Every new
  * toggle should add its key/default here.
  *
- * GutenView ships with every enhancement on, so a fresh install immediately
+ * VisiBlocks ships with every enhancement on, so a fresh install immediately
  * shows what the plugin does. Editors turn off whatever they do not want.
  *
  * @return array
  */
-function gutenview_default_settings() {
+function visiblocks_default_settings() {
 	return array(
 		'enabled'               => true,     // Master switch.
 		'view_same_tab'         => true,     // Same-tab "View" button in the editor header.
@@ -43,14 +43,14 @@ function gutenview_default_settings() {
  *
  * @return array
  */
-function gutenview_get_settings() {
-	$stored = get_option( GUTENVIEW_OPTION, array() );
+function visiblocks_get_settings() {
+	$stored = get_option( VISIBLOCKS_OPTION, array() );
 
 	if ( ! is_array( $stored ) ) {
 		$stored = array();
 	}
 
-	return wp_parse_args( $stored, gutenview_default_settings() );
+	return wp_parse_args( $stored, visiblocks_default_settings() );
 }
 
 /**
@@ -59,19 +59,19 @@ function gutenview_get_settings() {
  * @param string $key Setting key.
  * @return mixed Setting value, or null if the key is unknown.
  */
-function gutenview_get_setting( $key ) {
-	$settings = gutenview_get_settings();
+function visiblocks_get_setting( $key ) {
+	$settings = visiblocks_get_settings();
 
 	return array_key_exists( $key, $settings ) ? $settings[ $key ] : null;
 }
 
 /**
- * Whether GutenView's enhancements are globally enabled (master switch).
+ * Whether VisiBlocks's enhancements are globally enabled (master switch).
  *
  * Feature modules should check this before doing any work.
  *
  * @return bool
  */
-function gutenview_is_enabled() {
-	return (bool) gutenview_get_setting( 'enabled' );
+function visiblocks_is_enabled() {
+	return (bool) visiblocks_get_setting( 'enabled' );
 }

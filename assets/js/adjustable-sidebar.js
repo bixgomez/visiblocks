@@ -1,12 +1,12 @@
 /**
- * GutenView: Adjustable editor sidebar.
+ * VisiBlocks: Adjustable editor sidebar.
  *
  * Keeps Gutenberg's complementary-area panel at an editor-controlled width and
  * adds a pointer and keyboard operable separator at its inner edge. The
  * separator is appended to document.body rather than Gutenberg's React-owned
  * tree, so normal editor renders cannot remove it.
  *
- * @package GutenView
+ * @package VisiBlocks
  */
 
 ( function () {
@@ -18,9 +18,9 @@
 	var CORE_WIDTH = 280;
 	var KEYBOARD_STEP = 10;
 	var MOBILE_BREAKPOINT = 782;
-	var PREFERENCE_SCOPE = 'gutenview';
+	var PREFERENCE_SCOPE = 'visiblocks';
 	var PREFERENCE_NAME = 'editorSidebarWidth';
-	var FALLBACK_STORAGE_KEY = 'gutenviewEditorSidebarWidth';
+	var FALLBACK_STORAGE_KEY = 'visiblocksEditorSidebarWidth';
 
 	var body;
 	var handle;
@@ -43,15 +43,15 @@
 	function labels() {
 		if ( window.wp && window.wp.i18n ) {
 			return {
-				label: window.wp.i18n.__( 'Resize editor sidebar', 'gutenview' ),
+				label: window.wp.i18n.__( 'Resize editor sidebar', 'visiblocks' ),
 				instructions: window.wp.i18n.__(
 					'Drag to resize the editor sidebar. Use the arrow keys to resize. Double-click to reset.',
-					'gutenview'
+					'visiblocks'
 				),
 				value: function ( width ) {
 					return window.wp.i18n.sprintf(
 						/* translators: %d: editor sidebar width in pixels. */
-						window.wp.i18n.__( 'Editor sidebar width: %d pixels', 'gutenview' ),
+						window.wp.i18n.__( 'Editor sidebar width: %d pixels', 'visiblocks' ),
 						width
 					);
 				},
@@ -244,7 +244,7 @@
 		}
 
 		body.style.setProperty(
-			'--gutenview-editor-sidebar-width',
+			'--visiblocks-editor-sidebar-width',
 			currentWidth + 'px'
 		);
 
@@ -301,7 +301,7 @@
 	function updateOpenState() {
 		var isOpen = isDesktop() && sidebarIsOpen();
 
-		body.classList.toggle( 'gutenview-sidebar-is-open', isOpen );
+		body.classList.toggle( 'visiblocks-sidebar-is-open', isOpen );
 
 		if ( ! isOpen && isDragging ) {
 			endDrag();
@@ -326,7 +326,7 @@
 		if (
 			! handle ||
 			! sidebar ||
-			! body.classList.contains( 'gutenview-sidebar-is-open' )
+			! body.classList.contains( 'visiblocks-sidebar-is-open' )
 		) {
 			return;
 		}
@@ -341,7 +341,7 @@
 		distanceFromRight = window.innerWidth - rect.right;
 		sidebarSide = distanceFromLeft < distanceFromRight ? 'left' : 'right';
 		separatorX = 'left' === sidebarSide ? rect.right : rect.left;
-		body.dataset.gutenviewSidebarSide = sidebarSide;
+		body.dataset.visiblocksSidebarSide = sidebarSide;
 
 		handle.style.left =
 			( 'left' === sidebarSide ? separatorX : separatorX - handle.offsetWidth ) +
@@ -406,7 +406,7 @@
 		}
 
 		isDragging = false;
-		body.classList.remove( 'gutenview-sidebar-is-resizing' );
+		body.classList.remove( 'visiblocks-sidebar-is-resizing' );
 		saveWidth( preferredWidth );
 	}
 
@@ -445,7 +445,7 @@
 		isDragging = true;
 		dragStartX = event.clientX;
 		dragStartWidth = currentWidth;
-		body.classList.add( 'gutenview-sidebar-is-resizing' );
+		body.classList.add( 'visiblocks-sidebar-is-resizing' );
 		handle.setPointerCapture( event.pointerId );
 		event.preventDefault();
 	}
@@ -498,7 +498,7 @@
 		var text = labels();
 
 		handle = document.createElement( 'div' );
-		handle.className = 'gutenview-sidebar-resize-handle';
+		handle.className = 'visiblocks-sidebar-resize-handle';
 		handle.setAttribute( 'role', 'separator' );
 		handle.setAttribute( 'aria-orientation', 'vertical' );
 		handle.setAttribute( 'aria-label', text.label );
@@ -525,7 +525,7 @@
 	 */
 	function boot() {
 		body = document.body;
-		body.classList.add( 'gutenview-adjustable-sidebar' );
+		body.classList.add( 'visiblocks-adjustable-sidebar' );
 
 		createHandle();
 		preferredWidth = getSavedWidth();

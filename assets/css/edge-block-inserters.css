@@ -1,5 +1,5 @@
 /**
- * GutenView: Add-block buttons at the edges.
+ * VisiBlocks: Add-block buttons at the edges.
  *
  * Styles the real "+" buttons injected above the first and below the last
  * top-level block. Both edges share one rule set: they are the same control, and
@@ -11,10 +11,10 @@
  * also apply (classic themes routinely style bare `button` elements), so the
  * appearance is reset explicitly rather than assumed.
  *
- * @package GutenView
+ * @package VisiBlocks
  */
 
-.gutenview-edge-inserter {
+.visiblocks-edge-inserter {
 	/* Reset anything the theme's editor styles put on bare buttons. */
 	appearance: none;
 	-webkit-appearance: none;
@@ -57,7 +57,7 @@
 	 * the rule above once the animation ends, so the hover brighten still works.
 	 * `forwards` would freeze opacity at 0.4 and override :hover entirely.
 	 */
-	animation: gutenview-edge-inserter-fade-in 0.4s linear 1s backwards;
+	animation: visiblocks-edge-inserter-fade-in 0.4s linear 1s backwards;
 }
 
 /*
@@ -70,12 +70,12 @@
  * The end button needs none of this. It is last in the flow, so the room it takes
  * is room at the very bottom of the canvas, where there is nothing to displace.
  */
-.gutenview-edge-inserter--start {
+.visiblocks-edge-inserter--start {
 	position: relative;
 	margin-bottom: -16px;
 }
 
-@keyframes gutenview-edge-inserter-fade-in {
+@keyframes visiblocks-edge-inserter-fade-in {
 	from {
 		opacity: 0;
 	}
@@ -84,7 +84,7 @@
 	}
 }
 
-.gutenview-edge-inserter:hover {
+.visiblocks-edge-inserter:hover {
 	opacity: 1;
 	background-color: #1e1e1e;
 	color: #fff;
@@ -97,7 +97,7 @@
  * reset above clears border and box-shadow, so nothing else would mark it. Uses
  * :focus-visible so a mouse click does not leave a ring behind.
  */
-.gutenview-edge-inserter:focus-visible {
+.visiblocks-edge-inserter:focus-visible {
 	opacity: 1;
 	background-color: #1e1e1e;
 	color: #fff;
@@ -111,7 +111,7 @@
  * background-size. The button's transform scales this along with everything
  * else, so the glyph never needs a size of its own for the hover state.
  */
-.gutenview-edge-inserter svg {
+.visiblocks-edge-inserter svg {
 	display: block;
 	width: 11px;
 	height: 11px;
@@ -120,7 +120,7 @@
 
 /* Reduced motion: appear immediately, at the resting opacity of the base rule. */
 @media ( prefers-reduced-motion: reduce ) {
-	.gutenview-edge-inserter {
+	.visiblocks-edge-inserter {
 		animation: none;
 		transition: none;
 	}

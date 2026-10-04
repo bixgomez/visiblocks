@@ -1,10 +1,10 @@
 /**
- * GutenView: Reposition save snackbar.
+ * VisiBlocks: Reposition save snackbar.
  *
  * Moves the "saved" snackbar from the far bottom-left corner up to the
  * top-right, near the Save button.
  *
- * @package GutenView
+ * @package VisiBlocks
  */
 
 .components-snackbar-list {

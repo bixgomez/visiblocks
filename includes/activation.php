@@ -1,11 +1,11 @@
 <?php
 /**
- * GutenView activation routine.
+ * VisiBlocks activation routine.
  *
  * Seeds the settings option the first time the plugin is activated so a new
  * install starts with every enhancement switched on.
  *
- * @package GutenView
+ * @package VisiBlocks
  */
 
 // Exit if accessed directly.
@@ -23,8 +23,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @return void
  */
-function gutenview_activate() {
-	require_once GUTENVIEW_DIR . 'includes/settings.php';
+function visiblocks_activate() {
+	require_once VISIBLOCKS_DIR . 'includes/settings.php';
 
-	add_option( GUTENVIEW_OPTION, gutenview_default_settings() );
+	add_option( VISIBLOCKS_OPTION, visiblocks_default_settings() );
 }
