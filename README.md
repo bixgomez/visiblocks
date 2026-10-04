@@ -47,7 +47,7 @@ Once the release is available through Packagist, install it from the consuming
 WordPress project:
 
 ```bash
-composer require bixgomez/visiblocks:^0.1
+composer require bixgomez/visiblocks:^0.2
 ```
 
 VisiBlocks declares the `wordpress-plugin` package type and installs as
