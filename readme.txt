@@ -4,7 +4,7 @@ Tags: block editor, gutenberg, editor, usability
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.2.0
+Stable tag: 0.2.1
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -129,6 +129,9 @@ do not want and keep the rest. There is also a master switch that turns
 everything off at once while remembering your individual choices.
 
 == Changelog ==
+
+= 0.2.1 =
+* Point the Plugin URI at the GitHub repository.
 
 = 0.2.0 =
 * Rename the plugin from GutenView to VisiBlocks. The slug, text domain, settings option, and function prefix are now `visiblocks`. Settings saved by 0.1.x are not carried over.

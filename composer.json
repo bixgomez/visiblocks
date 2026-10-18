@@ -4,7 +4,7 @@
     "description": "Makes the WordPress block editor's hidden editing affordances visible and discoverable.",
     "type": "wordpress-plugin",
     "license": "GPL-2.0-or-later",
-    "homepage": "https://visiblocks.dev",
+    "homepage": "https://github.com/bixgomez/visiblocks",
     "keywords": [
         "wordpress",
         "wordpress plugin",

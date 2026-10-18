@@ -1,9 +1,9 @@
 <?php
 /**
  * Plugin Name:       VisiBlocks
- * Plugin URI:        https://visiblocks.dev
+ * Plugin URI:        https://github.com/bixgomez/visiblocks
  * Description:       Makes the WordPress block editor's hidden editing affordances visible and discoverable.
- * Version:           0.2.0
+ * Version:           0.2.1
  * Requires at least: 6.5
  * Requires PHP:      7.4
  * Author:            Richard Gilbert
@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Plugin version.
  */
-define( 'VISIBLOCKS_VERSION', '0.2.0' );
+define( 'VISIBLOCKS_VERSION', '0.2.1' );
 
 /**
  * Absolute path to the main plugin file.
