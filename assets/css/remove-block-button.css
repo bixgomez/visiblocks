@@ -16,3 +16,28 @@
 	align-items: center;
 	gap: 2px;
 }
+
+/*
+ * Inset the inserter 4px from the block's top-right corner, clear of the block
+ * outline. The `body` prefix outranks core's doubled-class rule regardless of
+ * stylesheet order; `body` exists in both the admin document and the canvas.
+ */
+body .block-editor-block-list__empty-block-inserter.block-editor-block-list__empty-block-inserter {
+	line-height: 0;
+	position: absolute;
+	right: 4px;
+	top: 4px;
+}
+
+/* The "+" and the "-" at 22px square (core: 24px). */
+body .block-editor-block-list__empty-block-inserter .block-editor-inserter__toggle.components-button.has-icon {
+	width: 22px;
+	min-width: 22px;
+	height: 22px;
+	padding: 0;
+}
+
+body .block-editor-block-list__empty-block-inserter .block-editor-inserter__toggle.components-button.has-icon svg {
+	width: 22px;
+	height: 22px;
+}
