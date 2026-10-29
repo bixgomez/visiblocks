@@ -10,6 +10,8 @@
  * - JS measures the theme's variable block gaps and writes positioning/visibility
  *   custom properties; it runs in the editor's outer document (it reaches into
  *   the canvas iframe itself), so it loads on `enqueue_block_editor_assets`.
+ * - A second script shows core's own between-block inserter at boundaries with
+ *   no gap, where core's hover handler cannot reach. Same hook, same reason.
  *
  * @package VisiBlocks
  */
@@ -44,6 +46,24 @@ function visiblocks_add_block_links_enqueue_style() {
 add_action( 'enqueue_block_assets', 'visiblocks_add_block_links_enqueue_style' );
 
 /**
+ * Enqueue the stylesheet that widens the hit area of core's between-block "+".
+ *
+ * Core may render that popover in the outer admin document or in the canvas, so
+ * this loads on both hooks.
+ *
+ * @return void
+ */
+function visiblocks_add_block_links_enqueue_inserter_style() {
+	if ( ! is_admin() || ! visiblocks_add_block_links_enabled() ) {
+		return;
+	}
+
+	visiblocks_enqueue_style( 'visiblocks-add-block-links-inserter', 'assets/css/add-block-links-inserter.css' );
+}
+add_action( 'enqueue_block_editor_assets', 'visiblocks_add_block_links_enqueue_inserter_style' );
+add_action( 'enqueue_block_assets', 'visiblocks_add_block_links_enqueue_inserter_style' );
+
+/**
  * Enqueue the add-block-hints measuring script, if enabled.
  *
  * @return void
@@ -58,6 +78,12 @@ function visiblocks_add_block_links_enqueue_script() {
 		'assets/js/add-block-links.js',
 		// Needed to ask the editor whether the selected block is an untouched
 		// empty one, which decides whether the adjacent ghosts are honest.
+		array( 'wp-data', 'wp-blocks' )
+	);
+
+	visiblocks_enqueue_script(
+		'visiblocks-add-block-links-inserter',
+		'assets/js/add-block-links-inserter.js',
 		array( 'wp-data', 'wp-blocks' )
 	);
 }

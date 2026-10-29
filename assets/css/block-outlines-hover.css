@@ -23,7 +23,9 @@
  * hovered on the way to clicking elsewhere would flash as it faded.
  */
 .block-editor-block-list__block:hover,
-.block-editor-block-list__block.is-hovered {
+.block-editor-block-list__block.is-hovered,
+.block-editor-block-list__block:hover::before,
+.block-editor-block-list__block.is-hovered::before {
 	transition: var( --visiblocks-block-outline-transition );
 }
 
@@ -37,5 +39,5 @@
  */
 .block-editor-block-list__block.is-selected:hover,
 .block-editor-block-list__block.is-selected.is-hovered {
-	outline-color: transparent;
+	--visiblocks-line-color: transparent;
 }

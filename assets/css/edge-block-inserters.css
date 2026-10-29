@@ -69,9 +69,15 @@
  *
  * The end button needs none of this. It is last in the flow, so the room it takes
  * is room at the very bottom of the canvas, where there is nothing to displace.
+ *
+ * The start button overlaps the top of the first block, which comes later in the
+ * DOM and would paint over it (block wrappers are positioned, and themes often
+ * position their sections too). The z-index keeps it on top, above the block
+ * outline overlay (z-index 20 in block-outlines.css).
  */
 .visiblocks-edge-inserter--start {
 	position: relative;
+	z-index: 21;
 	margin-bottom: -16px;
 }
 

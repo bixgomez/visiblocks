@@ -32,8 +32,12 @@
 	--visiblocks-block-outline-color: rgba( 0, 0, 0, 0.1 );
 }
 
-/* Both directions animate here, unlike hover mode. */
-.block-editor-block-list__block {
+/*
+ * Both directions animate here, unlike hover mode. The wrapper entry covers the
+ * fallback outline; the ::before entry covers the overlay.
+ */
+.block-editor-block-list__block,
+.block-editor-block-list__block::before {
 	transition: var( --visiblocks-block-outline-transition );
 }
 
@@ -42,24 +46,25 @@
  * reads as a different KIND of thing rather than just another shade.
  * Declared after the base file's :hover so it still reads while pointing at one
  * of the containers.
- *
- * `!important` because Gutenberg manipulates outlines on selection-related states
- * via inline styles; drop it if it proves unnecessary.
  */
 .block-editor-block-list__block.has-child-selected {
-	outline-style: solid !important;
-	outline-color: var( --visiblocks-block-outline-color-ancestor ) !important;
+	--visiblocks-line-style: solid;
+	--visiblocks-line-color: var( --visiblocks-block-outline-color-ancestor );
+}
+
+/* Selected: full admin blue, solid (the deepest point of the chain). */
+.block-editor-block-list__block.is-selected {
+	--visiblocks-line-style: solid;
+	--visiblocks-line-color: var( --visiblocks-block-outline-color-active );
 }
 
 /*
- * Selected: full admin blue, solid (the deepest point of the chain).
- *
+ * Fallback outline on a selected separator, or a selected block after one.
  * `!important` is required because Gutenberg manages the selected block's outline
  * via inline styles (JS), which a normal rule can't override.
  */
-.block-editor-block-list__block.is-selected {
-	outline-style: solid !important;
-	outline-color: var( --visiblocks-block-outline-color-active ) !important;
-	outline-width: 2px !important;
+hr.block-editor-block-list__block.is-selected,
+.is-root-container > hr.block-editor-block-list__block + .block-editor-block-list__block.is-selected {
+	outline: 2px var( --visiblocks-line-style ) var( --visiblocks-line-color ) !important;
 	outline-offset: -2px !important;
 }

@@ -11,8 +11,15 @@
  * what makes that mode different, which is the resting line and how selection is
  * treated.
  *
- * Uses `outline` with a negative `outline-offset` so lines sit just inside the
- * block edge with zero layout shift.
+ * The line is drawn on a `::before` overlay above the block's content, with zero
+ * layout shift. An `outline` on the wrapper would be painted over by positioned
+ * descendants (for example a theme section with `position: relative` and a
+ * background), which hides it on many theme-built blocks.
+ *
+ * Each block's line state is two custom properties, set per state and read by
+ * the overlay (and by the fallback outline):
+ *   --visiblocks-line-color
+ *   --visiblocks-line-style
  *
  * @package VisiBlocks
  */
@@ -50,19 +57,50 @@
 	 * property means the reduced-motion override below reaches both without having
 	 * to out-specify a rule in a stylesheet that loads later.
 	 */
-	--visiblocks-block-outline-transition: outline-color 0.2s linear;
+	--visiblocks-block-outline-transition: border-color 0.2s linear, outline-color 0.2s linear;
 }
 
-/* The line itself: same geometry in both modes. */
+/*
+ * Line state, resting. Every block wrapper declares its own values, so a nested
+ * block never inherits its parent's hover or selection state.
+ */
 .block-editor-block-list__block {
-	outline: 2px dashed var( --visiblocks-block-outline-color );
-	outline-offset: -2px;
+	--visiblocks-line-color: var( --visiblocks-block-outline-color );
+	--visiblocks-line-style: dashed;
 }
 
 /* Hover: "about to be selected". Same in both modes. */
 .block-editor-block-list__block:hover,
 .block-editor-block-list__block.is-hovered {
-	outline-color: var( --visiblocks-block-outline-color-hover );
+	--visiblocks-line-color: var( --visiblocks-block-outline-color-hover );
+}
+
+/*
+ * The line: an overlay covering the block, above its content. Core positions
+ * block wrappers (`position: relative`), which anchors the overlay.
+ *
+ * The z-index applies inside the editor canvas only; editor popovers and
+ * toolbars render outside it and stay on top.
+ *
+ * Excluded, and given the fallback outline below instead:
+ *   - separators: an <hr> is a void element and can't host ::before;
+ *   - the block after a top-level separator: its ::before carries the
+ *     separator's add-block hint (see add-block-links.css).
+ */
+.block-editor-block-list__block:not( hr ):not( .is-root-container > hr + * )::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: 20;
+	border: 2px var( --visiblocks-line-style ) var( --visiblocks-line-color );
+	pointer-events: none;
+}
+
+/* Fallback line for blocks that can't host the overlay. */
+hr.block-editor-block-list__block,
+.is-root-container > hr.block-editor-block-list__block + .block-editor-block-list__block {
+	outline: 2px var( --visiblocks-line-style ) var( --visiblocks-line-color );
+	outline-offset: -2px;
 }
 
 /*

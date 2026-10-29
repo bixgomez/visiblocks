@@ -231,17 +231,26 @@ enhancements, not a framework.
 
 ## Gotchas
 
-**The pseudo-element budget is nearly spent.** Block wrappers have only
-`::before` and `::after`. The add-block hints use `::after` (and `::before` on
-blocks that follow a separator), and core itself uses `::after` to draw the
-`.is-highlighted` ring. Any new block-level decoration has to account for what is
-already claimed. Where core and VisiBlocks collide, VisiBlocks yields: see the
-`.is-highlighted` rule at the end of `add-block-links.css`, which hands the
-pseudo-element back to core for the duration of the highlight.
+**The pseudo-element budget is spent.** Block wrappers have only `::before` and
+`::after`. Block outlines draw on `::before`; the add-block hints use `::after`
+(and `::before` on blocks that follow a separator, which then fall back to a
+plain `outline`); and core itself uses `::after` to draw the `.is-highlighted`
+ring. A new block-level decoration needs a different mechanism. Where core and
+VisiBlocks collide, VisiBlocks yields: see the `.is-highlighted` rule at the end
+of `add-block-links.css`, which hands the pseudo-element back to core for the
+duration of the highlight.
 
-**The selected-block outline needs `!important`.** Gutenberg sets that outline
-through inline styles from JavaScript, which an ordinary stylesheet rule cannot
-override.
+**Block outlines are an overlay, not an `outline`.** A wrapper's `outline` is
+painted under positioned descendants, so a theme block that renders a section
+with `position: relative` and a background hides it completely. The line is a
+`::before` overlay above the block's content instead. Each block's line state
+lives in `--visiblocks-line-color` and `--visiblocks-line-style`, which the mode
+stylesheets set per state.
+
+**The fallback outline needs `!important` when selected.** Separators, and the
+block after one, keep a real `outline`. Gutenberg sets the selected block's
+outline through inline styles from JavaScript, which an ordinary stylesheet rule
+cannot override.
 
 **`color-mix()` sets a browser floor.** The outline colors derive hover and
 ancestor tints from `--wp-admin-theme-color` via `color-mix()`, which requires
@@ -252,6 +261,19 @@ floor is ever too high.
 so it can never paint its own hint. The gap below one is drawn by the *next*
 block's `::before` instead. Two consecutive separators remain an unsolved edge
 case, deemed rare enough to leave.
+
+**Some themes leave core's inserter nothing to hover.** Core shows its
+between-block inserter only while the cursor is over the block list itself,
+between two block wrappers. A theme that spaces sections with padding inside
+its blocks leaves a zero-pixel gap, so core's inserter never appears there.
+`add-block-links-inserter.js` covers those boundaries (gaps under 8px) by
+dispatching core's own `showInsertionPoint()` with `__unstableWithInserter`,
+the same call core's hover handler makes. That option is unstable API; if core
+renames it, ghosts at zero-gap boundaries lose their inserter again. Core's
+handler hides the insertion point on every mouse move over a block, and React
+renders between listeners, so the script listens on the block list in the
+capture phase and stops propagation inside those bands. Otherwise the inserter
+remounts on every move and its appear animation never completes.
 
 **Mirror core's limits rather than inventing them.** `MAX_COLUMNS` in
 `add-block-links.js` is 6 because core's Columns block caps there and stops

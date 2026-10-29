@@ -1,0 +1,25 @@
+/**
+ * VisiBlocks: Add-block hints (wider hit area for core's between-block "+").
+ *
+ * Core's between-block inserter button is small, so the pointer, the hover state
+ * and the click only register over its exact square. A transparent ::before
+ * extends the button's hit area by 8px on every side without changing its look.
+ *
+ * Applies to every between-block inserter, including the ones core shows on its
+ * own in real gaps.
+ *
+ * Loaded in both the outer admin document and the canvas, since core may render
+ * the inserter popover in either.
+ *
+ * @package VisiBlocks
+ */
+
+.block-editor-block-list__insertion-point-inserter .block-editor-inserter__toggle {
+	position: relative;
+}
+
+.block-editor-block-list__insertion-point-inserter .block-editor-inserter__toggle::before {
+	content: "";
+	position: absolute;
+	inset: -8px;
+}
