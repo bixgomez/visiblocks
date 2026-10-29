@@ -4,7 +4,7 @@ Tags: block editor, gutenberg, editor, usability
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.2.1
+Stable tag: 0.2.2
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -129,6 +129,12 @@ do not want and keep the rest. There is also a master switch that turns
 everything off at once while remembering your individual choices.
 
 == Changelog ==
+
+= 0.2.2 =
+* Block outlines now show on themes whose blocks render positioned sections with backgrounds.
+* The add-block button above the first block is no longer hidden behind that block.
+* The native between-block "+" now appears where blocks have no gap between them, with a larger hover area.
+* The "+" and "-" buttons on an empty block sit 4px in from its corner, at 22px square.
 
 = 0.2.1 =
 * Point the Plugin URI at the GitHub repository.
