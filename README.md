@@ -234,11 +234,14 @@ enhancements, not a framework.
 **The pseudo-element budget is spent.** Block wrappers have only `::before` and
 `::after`. Block outlines draw on `::before`; the add-block hints use `::after`
 (and `::before` on blocks that follow a separator, which then fall back to a
-plain `outline`); and core itself uses `::after` to draw the `.is-highlighted`
-ring. A new block-level decoration needs a different mechanism. Where core and
-VisiBlocks collide, VisiBlocks yields: see the `.is-highlighted` rule at the end
-of `add-block-links.css`, which hands the pseudo-element back to core for the
-duration of the highlight.
+plain `outline`); and core itself uses `::after` for the `.is-highlighted` ring,
+the multi-selection overlay, and the focus ring on non-text blocks. A new
+block-level decoration needs a different mechanism. Where core and VisiBlocks
+collide, VisiBlocks yields: see the hand-back rule at the end of
+`add-block-links.css`, which returns the pseudo-element to core in those states.
+The multi-selection case matters most: core makes native `::selection`
+transparent on multi-selected blocks, so if the overlay is trapped at ghost
+size, a selection across blocks looks as if it never happened.
 
 **Block outlines are an overlay, not an `outline`.** A wrapper's `outline` is
 painted under positioned descendants, so a theme block that renders a section

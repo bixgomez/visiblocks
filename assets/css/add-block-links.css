@@ -76,17 +76,20 @@
 }
 
 /*
- * When Gutenberg highlights a block (e.g. while hovering the parent-selector
- * button), it draws its own ring on ::after with `inset: 0`, the same pseudo
- * our ghost uses. Core never declares width/height, so our 16px box survives and
- * traps the ring at ghost size, so it never appears. Hand the pseudo back to core
- * for that moment; our ghost simply sits out, which is fine since it's transient
- * and the ring is the more useful cue right then.
+ * Core draws on the same ::after, with `inset: 0` and no width/height, in three
+ * states: the highlight ring (e.g. while hovering the parent-selector button),
+ * the multi-selection overlay (core makes native ::selection transparent on
+ * those blocks, so the overlay is the only sign of the selection), and the focus
+ * ring on non-text blocks. Our 16px box and fade animation would trap each one
+ * at ghost size. Hand the pseudo back to core in those states; the ghost sits
+ * out. Core's own background and opacity rules outrank this reset.
  *
- * Declared LAST so it also beats the block and column ghost rules above, which
- * have the same specificity.
+ * `.is-root-container` adds a class so this outranks the ghost rules above and
+ * the reduced-motion rule below, which have one class fewer.
  */
-.block-editor-block-list__block.is-highlighted::after {
+.is-root-container .block-editor-block-list__block.is-highlighted::after,
+.is-root-container .block-editor-block-list__block.is-multi-selected::after,
+.is-root-container .block-editor-block-list__block:not( [contenteditable="true"] ):focus::after {
 	display: block;
 	width: auto;
 	height: auto;

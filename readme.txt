@@ -4,7 +4,7 @@ Tags: block editor, gutenberg, editor, usability
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.2.2
+Stable tag: 0.2.3
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -89,6 +89,10 @@ No. Everything VisiBlocks does happens inside the editor. The front end is untou
 Yes. Every enhancement is a separate setting, so you can switch off the ones you do not want and keep the rest. There is also a master switch that turns everything off at once while remembering your individual choices.
 
 == Changelog ==
+
+= 0.2.3 =
+* Selecting text across several blocks shows its highlight again. The add-block hints had hidden the selection overlay, so a multi-block selection looked as if it had not happened.
+* The focus outline on non-text blocks, such as images, shows at full size again.
 
 = 0.2.2 =
 * Block outlines now show on themes whose blocks render positioned sections with backgrounds.
